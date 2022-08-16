@@ -1,10 +1,11 @@
+const valorBoleta = 5000
 const reservaciones = []
 const formulario = document.getElementById("formulario")
 const tiquete = ""
 
 //Clases
 class tiquetes{
-    constructor(pelicula = "",hora = "",clientes = "",bebida = "",palomitas = "",comida = ""){
+    constructor(pelicula = "",hora = "",clientes = 0,bebida = "",palomitas = "",comida = ""){
         this.pelicula = pelicula
         this.hora = hora
         this.clientes = clientes
@@ -28,6 +29,7 @@ const verificarPelicula = (x) =>{
             break
         default:
             alert("no ingreses peliculas que no estan en cartelera")
+            reservaciones.pop(tiquete)
             break
     }
 }
@@ -45,14 +47,21 @@ const verificarHora = (h) =>{
             break
         default:
             alert("ingresa horarios validos")
+            reservaciones.pop(tiquete)
     }
 }
 const verificarClientes = (c) =>{
     if(isNaN(c)){
         alert("ingresa caracteres validos")
+        reservaciones.pop(tiquete)
     }
     if(c > 5){
         alert("el maximo de clientes por grupo es de 5 personas")
+        reservaciones.pop(tiquete)
+    }
+    if(c < 1){
+        alert("el minimo de clientes es de 1 personas")
+        reservaciones.pop(tiquete)
     }
 }
 
@@ -66,7 +75,7 @@ formulario.addEventListener("submit",(e) => {
     const comidaA = document.getElementById("comidaA").value
     const palomitasA = document.getElementById("palomitasA").value
 
-    const tiquete = new tiquetes(carteleras,horarios,cantidadClientes,bebidaA,comidaA,palomitasA)
+    const tiquete = new tiquetes(carteleras,horarios,cantidadClientes,bebidaA,palomitasA,comidaA)
     reservaciones.push(tiquete)
 
     verificarPelicula(tiquete.pelicula)
@@ -85,12 +94,13 @@ botonTiquetera.addEventListener('click', () => {
         divReservaciones.innerHTML += `
             <div class="card" id="user${indice}" style="width: 18rem;margin:3px;">
                 <div class="card-body">
-                    <h5 class="card-title">pelicula: ${tiquete.pelicula}</h5>
-                    <p class="card-text">hora: ${tiquete.hora}</p>
-                    <p class="card-text">clientes: ${tiquete.clientes}</p>
+                    <h5 class="card-title">PELICULA: ${tiquete.pelicula}</h5>
+                    <p class="card-text">Hora: ${tiquete.hora}</p>
+                    <p class="card-text">Clientes: ${tiquete.clientes}</p>
                     <p class="card-text">Bebida: ${tiquete.bebida}</p>
                     <p class="card-text">Palomitas: ${tiquete.palomitas}</p>
                     <p class="card-text">Comida: ${tiquete.comida}</p>
+                    <p class="card-text">total a pagar es $${valorBoleta * tiquete.clientes}</p>
                 </div>
             </div>
         
