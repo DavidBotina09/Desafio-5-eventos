@@ -1,6 +1,6 @@
 const reservaciones = []
 const formulario = document.getElementById("formulario")
-
+const tiquete = ""
 
 //Clases
 class tiquetes{
@@ -14,6 +14,47 @@ class tiquetes{
     }
 }
 
+//funcion controladora de la pelicula a escoger
+const verificarPelicula = (x) =>{
+    switch(x){
+        case "thor":
+            tiquete.pelicula = "Thor"
+            break
+        case "telefono negro":
+            tiquete.pelicula = "Telefono Negro"
+            break
+        case "los minions":
+            tiquete.pelicula = "Los Minions"
+            break
+        default:
+            alert("no ingreses peliculas que no estan en cartelera")
+            break
+    }
+}
+//esta funcion valida que en el input de hora se escriban horarios validos
+const verificarHora = (h) =>{
+    switch(h){
+        case "6:30":
+            tiquete.hora = "6:30"
+            break
+        case "7:30":
+            tiquete.hora = "7:30"
+            break
+        case "9:30":
+            tiquete.hora = "9:30"
+            break
+        default:
+            alert("ingresa horarios validos")
+    }
+}
+const verificarClientes = (c) =>{
+    if(isNaN(c)){
+        alert("ingresa caracteres validos")
+    }
+    if(c > 5){
+        alert("el maximo de clientes por grupo es de 5 personas")
+    }
+}
 
 
 formulario.addEventListener("submit",(e) => {
@@ -28,21 +69,9 @@ formulario.addEventListener("submit",(e) => {
     const tiquete = new tiquetes(carteleras,horarios,cantidadClientes,bebidaA,comidaA,palomitasA)
     reservaciones.push(tiquete)
 
-    switch(tiquete.pelicula){
-        case "thor":
-            tiquete.pelicula = "Thor"
-            break
-        case "telefono negro":
-            carteleras = "Telefono Negro"
-            break
-        case "minions":
-            carteleras = "Los Minions"
-            break
-        default:
-            alert("no ingreses peliculas que no estan en cartelera")
-            formulario.reset()
-            break
-    }
+    verificarPelicula(tiquete.pelicula)
+    verificarHora(tiquete.hora)
+    verificarClientes(tiquete.clientes)
 
 
     formulario.reset()
@@ -59,7 +88,7 @@ botonTiquetera.addEventListener('click', () => {
                     <h5 class="card-title">pelicula: ${tiquete.pelicula}</h5>
                     <p class="card-text">hora: ${tiquete.hora}</p>
                     <p class="card-text">clientes: ${tiquete.clientes}</p>
-                    <p class="card-text">Bebida: $${tiquete.bebida}</p>
+                    <p class="card-text">Bebida: ${tiquete.bebida}</p>
                     <p class="card-text">Palomitas: ${tiquete.palomitas}</p>
                     <p class="card-text">Comida: ${tiquete.comida}</p>
                 </div>
