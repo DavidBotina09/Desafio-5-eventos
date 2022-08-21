@@ -5,7 +5,8 @@ const tiquete = ""
 
 //Clases
 class tiquetes{
-    constructor(pelicula = "",hora = "",clientes = 0,bebida = "",palomitas = "",comida = ""){
+    constructor(id,pelicula = "",hora = "",clientes = 0,bebida = "",palomitas = "",comida = ""){
+        this.id = id
         this.pelicula = pelicula
         this.hora = hora
         this.clientes = clientes
@@ -29,7 +30,7 @@ const verificarPelicula = (x) =>{
             break
         default:
             alert("no ingreses peliculas que no estan en cartelera")
-            reservaciones.pop(tiquete)
+            reservaciones.splice(tiquete)
             break
     }
 }
@@ -47,24 +48,32 @@ const verificarHora = (h) =>{
             break
         default:
             alert("ingresa horarios validos")
-            reservaciones.pop(tiquete)
+            reservaciones.splice(i,1)
+            break
     }
 }
 const verificarClientes = (c) =>{
-    if(isNaN(c)){
+    if((isNaN(c))||(c > 5)||(c < 1)){
         alert("ingresa caracteres validos")
-        reservaciones.pop(tiquete)
+        reservaciones.splice(i,1)
     }
     if(c > 5){
         alert("el maximo de clientes por grupo es de 5 personas")
-        reservaciones.pop(tiquete)
+        reservaciones.splice(i,1)
     }
     if(c < 1){
         alert("el minimo de clientes es de 1 personas")
-        reservaciones.pop(tiquete)
+        reservaciones.splice(i,1)
     }
 }
-
+let CamId = 1
+let i = 0
+const identificador = () =>{
+    for(i ; i < CamId ; i++){
+        console.log(`el id cambio a ${i}`)
+    }
+    CamId += 1
+}
 
 formulario.addEventListener("submit",(e) => {
     e.preventDefault()
@@ -75,8 +84,10 @@ formulario.addEventListener("submit",(e) => {
     const comidaA = document.getElementById("comidaA").value
     const palomitasA = document.getElementById("palomitasA").value
 
-    const tiquete = new tiquetes(carteleras,horarios,cantidadClientes,bebidaA,palomitasA,comidaA)
+    identificador()
+    const tiquete = new tiquetes(i,carteleras,horarios,cantidadClientes,bebidaA,palomitasA,comidaA)
     reservaciones.push(tiquete)
+   
 
     verificarPelicula(tiquete.pelicula)
     verificarHora(tiquete.hora)
@@ -85,6 +96,7 @@ formulario.addEventListener("submit",(e) => {
 
     formulario.reset()
     console.log(tiquete)
+    console.log(reservaciones)
 })
 
 //funciones para mostrar los tiquetes
