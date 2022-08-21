@@ -30,7 +30,7 @@ const verificarPelicula = (x) =>{
             break
         default:
             alert("no ingreses peliculas que no estan en cartelera")
-            reservaciones.splice(tiquete)
+            reservaciones.splice(i,1)
             break
     }
 }
